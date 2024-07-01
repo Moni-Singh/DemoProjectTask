@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
     public static List<Integer> likeProducts = new ArrayList<>();
+    public static List<Integer> bookmarked = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +36,10 @@ public class MainActivity extends AppCompatActivity {
         String token = sharedPreferences.getToken();
 
         if (token != null) {
-            // User is logged in, navigate to main tab
             navController.navigate(R.id.navigation_mainTab);
         } else {
-            // User is not logged in, navigate to login screen
             navController.navigate(R.id.navigation_login);
         }
-
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (navDestination.getId() == R.id.navigation_login) {
-                    // Handle login destination
-                } else if (navDestination.getId() == R.id.navigation_mainTab) {
-                    // Handle main tab destination
-                }
-            }
-        });
     }
 
     @Override
@@ -60,12 +48,5 @@ public class MainActivity extends AppCompatActivity {
             return navController.navigateUp();
         }
         return super.onSupportNavigateUp();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (navController != null && !navController.popBackStack()) {
-            super.onBackPressed();
-        }
     }
 }

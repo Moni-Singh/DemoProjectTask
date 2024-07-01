@@ -2,6 +2,7 @@ package com.example.taskdemo.ui.tab.discover;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,16 +41,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Product product = productList.get(position);
         ProductSliderViewHolder productSliderViewHolder = (ProductSliderViewHolder) holder;
         Picasso.get().load(product.getImage()).fit().into(productSliderViewHolder.binding.sliderImage);
-        setupPagerDots(productSliderViewHolder.binding.pagerDots, position);
-    }
 
-    // Method to setup pager dots for slider items
-    private void setupPagerDots(LinearLayout pagerDotsContainer, int position) {
+    }
+    void setupPagerDots(LinearLayout pagerDotsContainer, int position) {
         // Clear existing dots
         pagerDotsContainer.removeAllViews();
 
         Context context = pagerDotsContainer.getContext();
-        for (int i = 0; i < productList.size(); i++) {
+        int dotsCount = productList.isEmpty() ? 1 : productList.size();
+
+        for (int i = 0; i < dotsCount; i++) {
             ImageView dot = new ImageView(context);
             dot.setImageDrawable(ContextCompat.getDrawable(context, i == position ? R.drawable.active_dot : R.drawable.non_active_dot));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -61,6 +62,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             pagerDotsContainer.addView(dot);
         }
     }
+
 
     @Override
     public int getItemCount() {

@@ -43,13 +43,11 @@ public class HelperMethod {
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    // Execute the provided action
                     if (onConfirmAction != null) {
                         onConfirmAction.run();
                     }
                 })
                 .setNegativeButton("No", (dialog, which) -> {
-                    // Dismiss the dialog
                     dialog.dismiss();
                 })
                 .create()

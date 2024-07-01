@@ -1,9 +1,11 @@
 package com.example.taskdemo.model.response;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Product implements Serializable {
+public class Product implements Parcelable {
 
     private int id;
     private String title;
@@ -15,9 +17,10 @@ public class Product implements Serializable {
     private int type = 0;
     private boolean isLiked;
     private boolean isCategory = false;
-    private boolean isSlider =false;
+    private boolean isSlider = false;
     private List<Product> productList;
-    public Product(){};
+
+    public Product() {}
 
     public Product(int id, String title, double price, String description, String category, boolean isLiked, String image, Rating rating, int type) {
         this.id = id;
@@ -32,6 +35,7 @@ public class Product implements Serializable {
     }
 
     // Getters and Setters
+
     public int getId() {
         return id;
     }
@@ -87,7 +91,8 @@ public class Product implements Serializable {
     public void setRating(Rating rating) {
         this.rating = rating;
     }
-    public void setType(int type){
+
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -98,6 +103,7 @@ public class Product implements Serializable {
     public void setLiked(boolean liked) {
         isLiked = liked;
     }
+
     public int getType() {
         return type;
     }
@@ -125,4 +131,54 @@ public class Product implements Serializable {
     public List<Product> getProductList() {
         return productList;
     }
+
+    // Parcelable implementation
+
+    protected Product(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        price = in.readDouble();
+        description = in.readString();
+        category = in.readString();
+        image = in.readString();
+        rating = in.readParcelable(Rating.class.getClassLoader());
+        type = in.readInt();
+        isLiked = in.readByte() != 0;
+        isCategory = in.readByte() != 0;
+        isSlider = in.readByte() != 0;
+        productList = in.createTypedArrayList(Product.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeDouble(price);
+        dest.writeString(description);
+        dest.writeString(category);
+        dest.writeString(image);
+        dest.writeParcelable(rating, flags);
+        dest.writeInt(type);
+        dest.writeByte((byte) (isLiked ? 1 : 0));
+        dest.writeByte((byte) (isCategory ? 1 : 0));
+        dest.writeByte((byte) (isSlider ? 1 : 0));
+        dest.writeTypedList(productList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }
