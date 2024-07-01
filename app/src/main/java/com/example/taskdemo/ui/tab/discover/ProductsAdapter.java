@@ -2,6 +2,7 @@ package com.example.taskdemo.ui.tab.discover;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +42,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ProductSliderViewHolder productSliderViewHolder = (ProductSliderViewHolder) holder;
         Picasso.get().load(product.getImage()).fit().into(productSliderViewHolder.binding.sliderImage);
         setupPagerDots(productSliderViewHolder.binding.pagerDots, position);
+        productSliderViewHolder.binding.pagerDots.setVisibility(View.VISIBLE);
     }
 
     // Method to setup pager dots for slider items

@@ -52,9 +52,8 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
             headerView.measure(widthSpec, heightSpec);
             headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());
 
-            // Draw the header on the canvas
             c.save();
-            c.translate(0, 0); // Adjust the position as needed
+            c.translate(0, 0);
             headerView.draw(c);
             c.restore();
         }
@@ -62,8 +61,6 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
 
     // Helper method to determine if an item is a header
     private boolean isFirstItemHeader(RecyclerView parent, int position) {
-        // Implement your logic to determine if an item is a header
-        // For example, you could check the item type or use a flag in your adapter
-        return true; // Replace with your actual logic
+        return true;
     }
 }

@@ -42,4 +42,11 @@
         tools:layout="@layout/fragment_discover"
         >
     </fragment>
+    <fragment
+
+        android:id="@+id/navigation_Setting"
+        android:name="com.example.taskdemo.ui.setting.SettingFragment"
+        android:label="@string/setting"
+        tools:layout="@layout/fragment_setting"
+        />
 </navigation>

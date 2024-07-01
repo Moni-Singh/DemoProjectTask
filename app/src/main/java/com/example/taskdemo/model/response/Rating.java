@@ -1,6 +1,9 @@
 package com.example.taskdemo.model.response;
 
-public class Rating {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Rating implements Parcelable {
     private double rate;
     private int count;
 
@@ -25,4 +28,33 @@ public class Rating {
     public void setCount(int count) {
         this.count = count;
     }
-};
+
+    // Parcelable implementation
+    protected Rating(Parcel in) {
+        rate = in.readDouble();
+        count = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(rate);
+        dest.writeInt(count);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Rating> CREATOR = new Creator<Rating>() {
+        @Override
+        public Rating createFromParcel(Parcel in) {
+            return new Rating(in);
+        }
+
+        @Override
+        public Rating[] newArray(int size) {
+            return new Rating[size];
+        }
+    };
+}

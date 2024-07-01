@@ -40,33 +40,12 @@ public class ProductDetailViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     List<Product> products = response.body();
                     productCategoryLiveData.setValue(products);
-
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 productCategoryLiveData.postValue(null);
-            }
-        });
-    }
-    public void getProductDetails(int productId) {
-        ApiInterface apiInterface = ApiClient.getRetroClient().create(ApiInterface.class);
-
-        apiInterface.getProductDetails(productId).enqueue(new Callback<ProductDetails>() {
-            @Override
-            public void onResponse(Call<ProductDetails> call, Response<ProductDetails> response) {
-                if (response.isSuccessful()) {
-                    ProductDetails productDetails = response.body();
-                    if (productDetails != null) {
-                        productDetailsList.postValue(response.body());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProductDetails> call, Throwable t) {
-                productDetailsList.postValue(null);
             }
         });
     }

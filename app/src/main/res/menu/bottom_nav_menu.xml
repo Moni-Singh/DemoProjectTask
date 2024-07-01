@@ -23,5 +23,8 @@
         android:id="@+id/navigation_Bookmark"
         android:title="@string/title_Bookmark"
         />
+    <item
+        android:id="@+id/navigation_Setting"
+        android:title="@string/setting"/>
 
 </menu>

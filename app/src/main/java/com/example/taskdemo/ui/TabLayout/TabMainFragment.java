@@ -1,5 +1,6 @@
 package com.example.taskdemo.ui.TabLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -7,13 +8,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.taskdemo.R;
@@ -37,7 +42,11 @@ public class TabMainFragment extends Fragment {
         binding = FragmentMainTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         MenuHost menuHost = requireActivity();
+        Window window = getActivity().getWindow();
 
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.red));
         tabLayout = binding.tabLayout;
         toolbar = root.findViewById(R.id.mToolbar);
         viewPager = binding.tabViewpager;
@@ -47,8 +56,8 @@ public class TabMainFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("");
         setHasOptionsMenu(true);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
+        toolbar.setTitleTextColor(Color.WHITE);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -59,7 +68,7 @@ public class TabMainFragment extends Fragment {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle("Product");
+                    collapsingToolbarLayout.setTitle(getString(R.string.product));
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
@@ -82,10 +91,12 @@ public class TabMainFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 // Do nothing
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -102,7 +113,7 @@ public class TabMainFragment extends Fragment {
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id == R.id.action_settings) {
-                    // Handle settings action
+                    Navigation.findNavController(requireView()).navigate(R.id.navigation_Setting);
                 }
                 return true;
             }

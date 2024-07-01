@@ -11,6 +11,7 @@ import com.example.taskdemo.MainActivity;
 import com.example.taskdemo.R;
 import com.example.taskdemo.databinding.ItemProductDetailsBinding;
 import com.example.taskdemo.model.response.Product;
+import com.example.taskdemo.utils.ApplicationSharedPreferences;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,6 +58,29 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }else{
                 imageView.setImageResource(R.drawable.ic_like);
                 MainActivity.likeProducts.add(product.getId());
+            }
+        });
+
+
+        boolean isBookedItem = MainActivity.bookmarked.contains(product.getId());
+
+        if (isBookedItem){
+            productDetailsViewHolder.binding.bookmarkProductIv.setImageResource(R.drawable.ic_bookmark_add);
+        }else {
+            productDetailsViewHolder.binding.bookmarkProductIv.setImageResource(R.drawable.ic_bookmark);
+        }
+
+        productDetailsViewHolder.binding.bookmarkProductIv.setOnClickListener(v -> {
+            ImageView imageView = (ImageView) v;
+            if (MainActivity.bookmarked.contains(product.getId())) {
+                imageView.setImageResource(R.drawable.ic_bookmark);
+                MainActivity.bookmarked.remove(MainActivity.bookmarked.indexOf(product.getId()));
+            }else{
+                Product clickedProduct = productDetailsList.get(productDetailsViewHolder.getAdapterPosition());
+                ApplicationSharedPreferences sharedPreferences = new ApplicationSharedPreferences(v.getContext());
+                sharedPreferences.saveProduct(clickedProduct);
+                imageView.setImageResource(R.drawable.ic_bookmark_add);
+                MainActivity.bookmarked.add(product.getId());
             }
         });
     }

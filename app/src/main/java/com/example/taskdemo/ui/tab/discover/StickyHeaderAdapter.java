@@ -20,7 +20,10 @@ import com.example.taskdemo.productinterface.OnProductItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -69,7 +72,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             productHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onProductItemClickListener.onItemClick(product);
+                    onProductItemClickListener.onItemClick(product.getId(),product);
                 }
             });
 
@@ -97,6 +100,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
         return productList.size();
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -139,4 +143,8 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             this.binding = binding;
         }
     }
+
+
+
+
 }
