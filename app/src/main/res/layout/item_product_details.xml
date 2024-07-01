@@ -1,6 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -8,37 +6,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/productTitleTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/title_ProductDetails"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
 
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:layout_margin="20dp"
             android:scaleType="fitXY"
             android:src="@drawable/nature" />
 
-        <TextView
-            android:id="@+id/productPriceTv"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/price"
-            android:textColor="@color/darkGreen"
-            android:textSize="20sp" />
+            android:gravity="center_vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/productPriceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="@string/price"
+                android:textColor="@color/darkGreen"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/ratingIv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_rating" />
+            <TextView
+                android:id="@+id/ratingtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/product" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +84,7 @@
                 android:layout_height="50dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:src="@drawable/ic_bookmark_add" />
+                android:src="@drawable/ic_bookmark" />
         </LinearLayout>
 
 
@@ -72,7 +96,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/description"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textColor="@color/darkGreen"
+            android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

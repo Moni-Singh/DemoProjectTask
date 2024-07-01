@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.taskdemo.MainActivity;
 import com.example.taskdemo.R;
@@ -20,7 +21,10 @@ import com.example.taskdemo.productinterface.OnProductItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -60,6 +64,17 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             SliderViewHolder sliderViewHolder = (SliderViewHolder) holder;
             ProductsAdapter productsAdapter = new ProductsAdapter(product.getProductList(), onProductItemClickListener);
             sliderViewHolder.binding.sliderImageVp.setAdapter(productsAdapter);
+            sliderViewHolder.binding.pagerDots.setVisibility(View.VISIBLE);
+            productsAdapter.setupPagerDots(sliderViewHolder.binding.pagerDots, 0);
+
+            sliderViewHolder.binding.sliderImageVp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+
+                    productsAdapter.setupPagerDots(sliderViewHolder.binding.pagerDots, position);
+                }
+            });
         } else{
             ProductViewHolder productHolder = (ProductViewHolder) holder;
             productHolder.binding.tvProductTitle.setText(product.getTitle());
@@ -69,7 +84,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             productHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onProductItemClickListener.onItemClick(product);
+                    onProductItemClickListener.onItemClick(product.getId(),product);
                 }
             });
 
@@ -97,6 +112,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
         return productList.size();
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -139,4 +155,8 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             this.binding = binding;
         }
     }
+
+
+
+
 }

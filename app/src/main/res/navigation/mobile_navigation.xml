@@ -42,4 +42,24 @@
         tools:layout="@layout/fragment_discover"
         >
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Setting"
+        android:name="com.example.taskdemo.ui.setting.SettingFragment"
+        android:label="@string/setting"
+        tools:layout="@layout/fragment_setting"
+        />
+    <fragment
+        android:id="@+id/navigation_CountrySelection"
+        android:name="com.example.taskdemo.ui.countrySelection.CountrySelectionFragment"
+        android:label="@string/country_selection"
+        tools:layout="@layout/fragment_country_selection"
+        />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_bottom_navigation"-->
+<!--        android:name="com.example.taskdemo.ui.bottomNavigation.BottomNavigationFragment"-->
+<!--        android:label="@string/bottom_navigation"-->
+<!--        tools:layout="@layout/fragment_bottom_navigation"-->
+<!--        />-->
+
 </navigation>

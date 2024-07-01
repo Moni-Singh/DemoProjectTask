@@ -5,4 +5,17 @@
     <style name="CircularProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="ThemeOverlay.Actionbar" parent="ThemeOverlay.MaterialComponents.ActionBar.Surface" >
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+
+        <!-- Base application theme. -->
+        <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+            <item name="colorPrimary">#0F9D58</item>
+            <item name="colorPrimaryVariant">#0F9D58</item>
+            <item name="colorOnPrimary">#000</item>
+        </style>
+
 </resources>
