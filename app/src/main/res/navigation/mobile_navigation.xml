@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_login">
+    <fragment
+        android:id="@+id/navigation_productDetails"
+        android:name="com.example.taskdemo.ui.tab.productDetails.ProductDetailFragment"
+        android:label="@string/title_ProductDetails"
+        tools:layout="@layout/fragment_product_detail" >
+
+    </fragment>
+    <fragment
+    android:id="@+id/navigation_mainTab"
+    android:name="com.example.taskdemo.ui.TabLayout.TabMainFragment"
+    android:label="@string/title_mainTab"
+    tools:layout="@layout/fragment_main_tab" >
+
+</fragment>
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.example.taskdemo.ui.auth.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/navigation_Bookmark"
+        android:name="com.example.taskdemo.ui.tab.bookmark.BookmarkFragment"
+        android:label="@string/title_Bookmark"
+        tools:layout="@layout/fragment_bookmark"/>
+    <fragment
+        android:id="@+id/navigation_photo"
+        android:name="com.example.taskdemo.ui.tab.photo.PhotoFragment"
+        android:label="@string/title_Photo"
+        tools:layout="@layout/fragment_photo"/>
+
+    <fragment
+        android:id="@+id/navigation_discover"
+        android:name="com.example.taskdemo.ui.tab.discover.DiscoverFragment"
+        android:label="@string/discover"
+        tools:layout="@layout/fragment_discover"
+        >
+    </fragment>
+</navigation>

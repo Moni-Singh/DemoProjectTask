@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_login"
+        android:title="@string/title_login" />
+    <item
+        android:id="@+id/navigation_mainTab"
+        android:title="@string/title_mainTab" />
+    <item
+        android:id="@+id/navigation_productDetails"
+        android:title="@string/title_ProductDetails" />
+
+    <item
+        android:id="@+id/navigation_discover"
+        android:title="@string/discover"
+        />
+    <item
+        android:id="@+id/navigation_photo"
+        android:title="@string/title_Photo"
+        />
+    <item
+        android:id="@+id/navigation_Bookmark"
+        android:title="@string/title_Bookmark"
+        />
+
+</menu>
