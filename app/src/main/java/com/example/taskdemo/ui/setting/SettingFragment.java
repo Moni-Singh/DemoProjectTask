@@ -64,6 +64,10 @@ public class SettingFragment extends Fragment {
                     .navigate(R.id.navigation_CountrySelection);
         });
 
+        binding.tvUserProfile.setOnClickListener(v -> {
+           Navigation.findNavController(requireView()).navigate(R.id.navigation_user_profile);
+        });
+
         binding.tvAccount.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), BottomNavigation.class);
             startActivity(intent);
