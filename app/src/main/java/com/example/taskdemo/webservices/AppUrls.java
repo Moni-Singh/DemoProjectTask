@@ -6,4 +6,6 @@ public class AppUrls {
     public static final String GET_PRODUCT = "products";
     public static final String GET_PRODUCT_BY_ID = "products/{id}";
     public static final String LOGIN = "auth/login";
+    public static final String GET_PRODUCT_CATEGORY = "products/categories";
+    public static final String GET_PRODUCT_CATEGORY_LIST = "products/category/{category}";
 }
