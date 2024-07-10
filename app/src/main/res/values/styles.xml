@@ -11,11 +11,15 @@
     </style>
 
 
-        <!-- Base application theme. -->
+        <!-- FAB BOTTTOM APP BAR. -->
         <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
             <item name="colorPrimary">#0F9D58</item>
             <item name="colorPrimaryVariant">#0F9D58</item>
             <item name="colorOnPrimary">#000</item>
         </style>
-
+    <style name="CropImageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/design_default_color_on_secondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

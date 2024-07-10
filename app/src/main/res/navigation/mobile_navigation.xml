@@ -8,16 +8,12 @@
         android:id="@+id/navigation_productDetails"
         android:name="com.example.taskdemo.ui.tab.productDetails.ProductDetailFragment"
         android:label="@string/title_ProductDetails"
-        tools:layout="@layout/fragment_product_detail" >
-
-    </fragment>
+        tools:layout="@layout/fragment_product_detail"/>
     <fragment
-    android:id="@+id/navigation_mainTab"
-    android:name="com.example.taskdemo.ui.TabLayout.TabMainFragment"
-    android:label="@string/title_mainTab"
-    tools:layout="@layout/fragment_main_tab" >
-
-</fragment>
+        android:id="@+id/navigation_mainTab"
+        android:name="com.example.taskdemo.ui.TabLayout.TabMainFragment"
+        android:label="@string/title_mainTab"
+        tools:layout="@layout/fragment_main_tab"/>
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.taskdemo.ui.auth.login.LoginFragment"
@@ -28,38 +24,40 @@
         android:id="@+id/navigation_Bookmark"
         android:name="com.example.taskdemo.ui.tab.bookmark.BookmarkFragment"
         android:label="@string/title_Bookmark"
-        tools:layout="@layout/fragment_bookmark"/>
+        tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/navigation_photo"
         android:name="com.example.taskdemo.ui.tab.photo.PhotoFragment"
         android:label="@string/title_Photo"
-        tools:layout="@layout/fragment_photo"/>
+        tools:layout="@layout/fragment_photo" />
 
     <fragment
         android:id="@+id/navigation_discover"
         android:name="com.example.taskdemo.ui.tab.discover.DiscoverFragment"
         android:label="@string/discover"
-        tools:layout="@layout/fragment_discover"
-        >
-    </fragment>
+        tools:layout="@layout/fragment_discover"/>
 
     <fragment
         android:id="@+id/navigation_Setting"
         android:name="com.example.taskdemo.ui.setting.SettingFragment"
         android:label="@string/setting"
-        tools:layout="@layout/fragment_setting"
-        />
+        tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/navigation_CountrySelection"
         android:name="com.example.taskdemo.ui.countrySelection.CountrySelectionFragment"
         android:label="@string/country_selection"
-        tools:layout="@layout/fragment_country_selection"
-        />
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_bottom_navigation"-->
-<!--        android:name="com.example.taskdemo.ui.bottomNavigation.BottomNavigationFragment"-->
-<!--        android:label="@string/bottom_navigation"-->
-<!--        tools:layout="@layout/fragment_bottom_navigation"-->
-<!--        />-->
+        tools:layout="@layout/fragment_country_selection" />
+        <fragment
+            android:id="@+id/navigation_user_profile"
+            android:name="com.example.taskdemo.ui.userProfile.UserProfileFragment"
+            android:label="@string/bottom_navigation"
+            tools:layout="@layout/fragment_user_profile"
+            />
 
+    <fragment
+        android:id="@+id/navigation_user_detail"
+        android:name="com.example.taskdemo.ui.userDetail.UserDetailFragment"
+        android:label="@string/user_detail"
+        tools:layout="@layout/fragment_user_detail"
+        />
 </navigation>

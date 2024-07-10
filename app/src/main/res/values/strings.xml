@@ -21,6 +21,10 @@
     <string name="bagStore">Bag Store</string>
     <string name="price">Price</string>
     <string name="category">Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="edit">Edit Profile</string>
     <string name="description">Description</string>
     <string name="product_details">Product Details</string>
     <string name="title">ProductTitle</string>
@@ -33,6 +37,12 @@
 
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="bio">Bio</string>
+    <string name="phone_no">Phone no.</string>
+    <string name="bio_char_limit">Up to 300 characters</string>
+
+    <string name="address">Address</string>
     <string name="invalid_username_or_password">Invalid username or password</string>
     <string name="username_required">Username cannot be blank</string>
     <string name="password_required">Password cannot be blank</string>
@@ -58,13 +68,18 @@
     <string name="geo_map">Geo fencing</string>
     <string name="logout">Logout</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="user_profile">User Profile</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="submit">Submit</string>
+    <string name="user_detail">User Detail</string>
     <string name="blocked_list">Blocked List</string>
-    <string name="account_security">Account Security</string>
+    <string name="tic_tac_toe">Tic Tac Toe</string>
     <string name="account_privacy">Account Privacy</string>
     <string name="notification">Notification</string>
     <string name="google_map">Google Map</string>
     <string name="general_setting">General Settings</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="moni">Moni</string>
     <string name="crud">CRUD</string>
     <string name="country_selection">Country Selection</string>
     <string name="country">Country</string>
@@ -75,10 +90,47 @@
     <string name="new_course">New Course</string>
     <string name="confirm_exit_title">Exit App</string>
     <string name="confirm_exit_message">Are you sure you want to close this app?</string>
-    <string name="yes">Yes</string>
+
     <string name="no">No</string>
 
+    <string name="storage_permission_denied">Storage permission denied</string>
+    <string name="ok">Ok</string>
+
+    <string name="permission_required">Permission Required</string>
+    <string name="no_thank">No Thanks</string>
+    <string name="permission_denied_message">Permission was denied and cannot be asked again. Please allow permission from app settings.</string>
+    <string name="permission_required_message">This app needs storage permissions to function properly. Please grant all of them.</string>
+    <string name="camera_permission_rationale">This app needs camera access to take photos.</string>
+    <string name="storage_permission_rationale">This app needs storage access to save and load images.</string>
+    <string name="select_background_image_message">Select Background Profile Image</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="manage_media_permission_required">Manage Media Permission Required</string>
+    <string name="manage_media_permission_message">Please allow access to manage media files to use this feature.</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="camera_permission_denied">Camera permission denied. Please grant the permission to capture photos.</string>
+    <string name="choose_an_option">Choose an Option</string>
+    <string name="yes">Yes</string>
+    <string name="alert">Alert</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="profile_updated_successfully">Profile Updated Successfully</string>
+    <string name="profile_created_successfully">Profile Created Successfully</string>
+    <string name="crop_image">Crop Image</string>
+    <string name="done">Done</string>
+
+    <string name="enter_name_message">Please enter your name.</string>
+    <string name="enter_email_message">Please enter your email.</string>
+    <string name="enter_address_message">Please enter your address.</string>
+    <string name="enter_phone_message">Please enter your phone number.</string>
+    <string name="phone_number_length_message">Phone number should be 10 digits long.</string>
+    <string name="enter_bio_message">Please enter your bio.</string>
+    <string name="bio_length_exceeded_message">Bio length should not exceed 300 characters.</string>
+    <string name="select_profile_image_message">Please select a profile image.</string>
+    <string name="gallery_permission_denied">Gallery Permission Denied.</string>
+    <string name="permissions_needed">permission needed.</string>
+    <string name="go_to_setting">"Go to setting"</string>
+
 
 
     <string-array name="programming_languages">

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.taskdemo.model.response.Product;
+import com.example.taskdemo.model.userProfile.UserProfile;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -14,7 +15,7 @@ public class ApplicationSharedPreferences {
     private static final String APPLICATION_PREFERENCES_NAME = "sharedPrefs";
     private static final String KEY_TOKEN = "Token";
     private static final String KEY_BOOKMARKED_IDS = "bookmarked_ids";
-
+    private static final String KEY_USER_PROFILE = "user_profile";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Gson gson;
@@ -24,6 +25,39 @@ public class ApplicationSharedPreferences {
         this.editor = sharedPreferences.edit();
         this.gson = new Gson();
     }
+
+    public void saveUserProfile(String name, String email, String address, String profileImageUri, String backgroundImageUri, String phoneNo, String bio) {
+        UserProfile userProfile = new UserProfile(name, email, address, profileImageUri, backgroundImageUri, phoneNo, bio);
+        String json = gson.toJson(userProfile);
+        sharedPreferences.edit().putString(KEY_USER_PROFILE, json).apply();
+    }
+
+    public UserProfile getUserProfile() {
+        String json = sharedPreferences.getString(KEY_USER_PROFILE, "");
+        return gson.fromJson(json, UserProfile.class);
+    }
+//
+//    public void saveUserProfile(String name, String email, String address, String profileImage, String backgroundImage, String phoneNo, String bio) {
+//        editor.putString(Constants.KEY_NAME, name);
+//        editor.putString(Constants.KEY_EMAIL, email);
+//        editor.putString(Constants.KEY_ADDRESS, address);
+//        editor.putString(Constants.KEY_PROFILE_IMAGE, profileImage);
+//        editor.putString(Constants.KEY_BACKGROUND_IMAGE, backgroundImage);
+//        editor.putString(Constants.KEY_PHONE_NO, phoneNo);
+//        editor.putString(Constants.KEY_BIO, bio);
+//        editor.apply();
+//    }
+//
+//    public UserProfile getUserProfile() {
+//        String name = sharedPreferences.getString(Constants.KEY_NAME, "");
+//        String email = sharedPreferences.getString(Constants.KEY_EMAIL, "");
+//        String address = sharedPreferences.getString(Constants.KEY_ADDRESS, "");
+//        String profileImage = sharedPreferences.getString(Constants.KEY_PROFILE_IMAGE, "");
+//        String backgroundImage = sharedPreferences.getString(Constants.KEY_BACKGROUND_IMAGE, "");
+//        String phoneNo = sharedPreferences.getString(Constants.KEY_PHONE_NO, "");
+//        String bio = sharedPreferences.getString(Constants.KEY_BIO, "");
+//        return new UserProfile(name, email, address, profileImage, backgroundImage, phoneNo, bio);
+//    }
 
     // Method to save the token
     public void saveToken(String token) {
