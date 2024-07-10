@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +16,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.taskdemo.MainActivity;
 import com.example.taskdemo.R;
 import com.example.taskdemo.databinding.FragmentCountrySelectionBinding;
 import com.example.taskdemo.model.country.response.Country;
 import com.example.taskdemo.model.country.response.State;
+import com.example.taskdemo.utils.Constants;
 import com.example.taskdemo.utils.HelperMethod;
 import com.google.gson.Gson;
 
@@ -42,6 +50,7 @@ public class CountrySelectionFragment extends Fragment {
     private String selectedCities;
     private Context mContext;
     private View progressLayout;
+    Dialog dialog;
 
     public static CountrySelectionFragment newInstance() {
         return new CountrySelectionFragment();
@@ -61,6 +70,7 @@ public class CountrySelectionFragment extends Fragment {
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
         mViewModel.getCountryList();
         progressLayout = binding.progressLayout.getRoot();
+        binding.selectStateTextView.setHint(R.string.select_country);
 
         mContext = getContext();
         observeViewModel();
@@ -90,50 +100,78 @@ public class CountrySelectionFragment extends Fragment {
                 AutoCompleteTextView autocompleteTV = binding.selectCountryTextView;
                 autocompleteTV.setAdapter(arrayAdapter);
 
+                if (countryNames.contains(Constants.INDIA)) {
+                    int indiaPosition = countryNames.indexOf(Constants.INDIA);
+                    autocompleteTV.setText(countryNames.get(indiaPosition), false);
+                    selectedCountry = countryNames.get(indiaPosition);
+                    selectedState = null;
+                    selectedCities = null;
+                    binding.selectStateTextView.setHint(R.string.select_State);
+                    binding.selectCitiesTextView.setHint(R.string.select_city);
+                    binding.displayCountySection.setVisibility(View.GONE);
+                    binding.progressState.setVisibility(View.VISIBLE);
+                    mViewModel.getStateList(selectedCountry);
+                }
+
                 autocompleteTV.setOnItemClickListener((parent, view, position, id) -> {
                     selectedCountry = (String) parent.getItemAtPosition(position);
                     if (selectedCountry != null) {
                         selectedState = null;
                         selectedCities = null;
-                        binding.selectStateTextView.setText(R.string.select_State);
-                        binding.selectCitiesTextView.setText(R.string.select_city);
+                        binding.selectStateTextView.setText("");
+                        binding.selectCitiesTextView.setText("");
+                        binding.selectCitiesTextView.setAdapter(null);
+                        binding.selectStateTextView.setHint(R.string.select_State);
+                        binding.selectCitiesTextView.setHint(R.string.select_city);
                         binding.displayCountySection.setVisibility(View.GONE);
                         binding.progressState.setVisibility(View.VISIBLE);
                         mViewModel.getStateList(selectedCountry);
                     }
                 });
+            }else{
+                HelperMethod.showToast(getString(R.string.something_went_wrong), mContext);
             }
         });
 
         mViewModel.getStateListObserver().observe(getViewLifecycleOwner(), stateResponse -> {
-            if (stateResponse != null && !stateResponse.error) {
+            if (stateResponse != null && !stateResponse.error && selectedCountry != null) {
                 binding.progressState.setVisibility(View.GONE);
+
                 ArrayList<String> stateNames = new ArrayList<>();
                 if (stateResponse.getData() != null && stateResponse.getData().getStates() != null) {
                     for (State state : stateResponse.getData().getStates()) {
                         stateNames.add(state.getName());
                     }
                 }
-
                 if (stateNames.isEmpty()) {
-                    binding.selectStateTextView.setText(R.string.state_not_found);
-                    binding.selectCitiesTextView.setText(R.string.city_not_found);
+                    binding.selectStateTextView.setText("");
+                    binding.selectCitiesTextView.setText("");
+                    binding.selectStateTextView.setEnabled(false);
+                    binding.selectCitiesTextView.setEnabled(false);
+                    binding.selectStateTextView.setHint(R.string.state_not_found);
+                    binding.selectCitiesTextView.setHint(R.string.city_not_found);
                     binding.selectStateTextView.setAdapter(null);
                     HelperMethod.showToast(getString(R.string.state_city_not_found), mContext);
                 } else {
+                    binding.selectStateTextView.setEnabled(true);
+                    binding.selectCitiesTextView.setEnabled(false);
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), R.layout.dropdown_item, stateNames);
                     binding.selectStateTextView.setAdapter(arrayAdapter);
                     binding.selectStateTextView.setOnItemClickListener((parent, view, position, id) -> {
                         selectedState = (String) parent.getItemAtPosition(position);
-                        if (selectedState != null && selectedCountry != null) {
+
+                        if (selectedCountry != null && selectedState != null) {
                             selectedCities = null;
-                            binding.selectCitiesTextView.setText(R.string.select_city);
+                            binding.selectCitiesTextView.setHint(R.string.select_city);
                             binding.displayCountySection.setVisibility(View.GONE);
+                            binding.selectCitiesTextView.setText("");
                             binding.progressCity.setVisibility(View.VISIBLE);
                             mViewModel.getCitiesList(selectedCountry, selectedState);
                         }
                     });
                 }
+            }else{
+                HelperMethod.showToast(getString(R.string.something_went_wrong), mContext);
             }
         });
 
@@ -141,12 +179,14 @@ public class CountrySelectionFragment extends Fragment {
             if (cityResponse != null) {
                 binding.progressCity.setVisibility(View.GONE);
                 if (!cityResponse.getData().isEmpty()) {
+                    binding.selectCitiesTextView.setEnabled(true);
                     ArrayList<String> citiesName = cityResponse.getData();
                     String[] cityArray = citiesName.toArray(new String[0]);
+
+                    binding.selectCitiesTextView.setAdapter(null);
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), R.layout.dropdown_item, cityArray);
                     AutoCompleteTextView autocompleteTV = binding.selectCitiesTextView;
                     autocompleteTV.setAdapter(arrayAdapter);
-
                     autocompleteTV.setOnItemClickListener((parent, view, position, id) -> {
                         selectedCities = (String) parent.getItemAtPosition(position);
 
@@ -158,7 +198,8 @@ public class CountrySelectionFragment extends Fragment {
                         }
                     });
                 } else {
-                    binding.selectCitiesTextView.setText(R.string.city_not_found);
+                    binding.selectCitiesTextView.setEnabled(false);
+                    binding.selectCitiesTextView.setHint(R.string.city_not_found);
                     HelperMethod.showToast(getString(R.string.city_not_found), mContext);
                 }
             } else {

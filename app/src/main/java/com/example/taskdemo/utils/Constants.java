@@ -10,5 +10,12 @@ public class Constants {
     public static final String PRODUCT_ID = "ProductId";
     public static final String SETTING = "Setting";
     public  static  final String PRODUCT ="product";
+    public  static  final String INDIA ="India";
+
+    public static final String IS_EDIT_PROFILE = "isEditProfile";
+    public static final String CAMERA = "Camera";
+    public static final String GALLERY = "Gallery";
+    public static final String USER_PROFILE = "userProfile";
+
 
 }

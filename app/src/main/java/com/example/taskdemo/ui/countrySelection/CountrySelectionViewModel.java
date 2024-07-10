@@ -57,13 +57,12 @@ public class CountrySelectionViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<CountryDataResponse> call, Throwable t) {
-
+                countryDataResponseList.postValue(null);
             }
         });
     }
 
     public void getStateList(String country) {
-        Log.d("enterd egre", country);
 
         StateRequest stateRequest = new StateRequest(country);
         CountryApiInterface apiInterface = CountryApiClient.getRetroClient().create(CountryApiInterface.class);
@@ -80,7 +79,7 @@ public class CountrySelectionViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<StateResponse> call, Throwable t) {
-
+                stateDataResponseList.postValue(null);
             }
         });
     }
@@ -99,7 +98,7 @@ public class CountrySelectionViewModel extends ViewModel {
             }
             @Override
             public void onFailure(Call<CityResponse> call, Throwable t) {
-                Log.e("response_failure", "Error: " + t.getMessage());
+                cityDataResposneList.postValue(null);
             }
         });
     }
