@@ -1,31 +1,26 @@
 package com.example.taskdemo.ui.tab.productDetails;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.taskdemo.R;
 import com.example.taskdemo.databinding.FragmentProductDetailBinding;
 import com.example.taskdemo.model.response.Product;
 import com.example.taskdemo.utils.Constants;
 import com.example.taskdemo.utils.HelperMethod;
-import com.google.gson.Gson;
 
 public class ProductDetailFragment extends Fragment {
 
@@ -36,6 +31,7 @@ public class ProductDetailFragment extends Fragment {
     private Context mContext;
     private int productId;
     private View progressLayout;
+
 
     public static ProductDetailFragment newInstance() {
         return new ProductDetailFragment();
@@ -106,7 +102,7 @@ public class ProductDetailFragment extends Fragment {
                 int positionToDisplay = -1;
                 for (int i = 0; i < products.size(); i++) {
                     if (products.get(i).getId() == productId) {
-                        positionToDisplay = i;
+
                         break;
                     }
                 }
