@@ -21,6 +21,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
 
+
     public ProductDetailsAdapter (List<Product> productDetailsList){
         this.productDetailsList = productDetailsList;
     }

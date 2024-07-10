@@ -38,8 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="none"
-                android:text="@string/select_country" />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,8 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="none"
-                android:text="@string/select_State" />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+              />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,6 +89,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemCityCl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -105,8 +110,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="none"
-                android:text="@string/select_city" />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+              />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -30,5 +30,11 @@ public interface ApiInterface {
 
     @GET(AppUrls.GET_PRODUCT_BY_ID)
     Call<ProductDetails>getProductDetails(@Path("id") int productId);
+//
+//    @GET(AppUrls.GET_PRODUCT_CATEGORY)
+//    Call<List<String>> getProductCategory();
+
+//    @GET(AppUrls.GET_PRODUCT_CATEGORY_LIST)
+//    Call<List<CategoryListResposne>> getProductsByCategory(@Path("category") String category);
 
 }
