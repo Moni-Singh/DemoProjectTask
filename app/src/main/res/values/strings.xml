@@ -21,6 +21,9 @@
     <string name="bagStore">Bag Store</string>
     <string name="price">Price</string>
     <string name="category">Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="edit">Edit Profile</string>
     <string name="description">Description</string>
     <string name="product_details">Product Details</string>
     <string name="title">ProductTitle</string>
@@ -33,6 +36,14 @@
 
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="bio">Bio</string>
+    <string name="phone_no">Phone no.</string>
+    <string name="bio_char_limit">Up to 300 characters</string>
+    <string name="phone_number_length_message">Phone number must be 10 digits long</string>
+
+
+    <string name="address">Address</string>
     <string name="invalid_username_or_password">Invalid username or password</string>
     <string name="username_required">Username cannot be blank</string>
     <string name="password_required">Password cannot be blank</string>
@@ -58,6 +69,8 @@
     <string name="geo_map">Geo fencing</string>
     <string name="logout">Logout</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="user_profile">User Profile</string>
+    <string name="user_detail">User Detail</string>
     <string name="blocked_list">Blocked List</string>
     <string name="account_security">Account Security</string>
     <string name="account_privacy">Account Privacy</string>
@@ -65,6 +78,7 @@
     <string name="google_map">Google Map</string>
     <string name="general_setting">General Settings</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="moni">Moni</string>
     <string name="crud">CRUD</string>
     <string name="country_selection">Country Selection</string>
     <string name="country">Country</string>
@@ -77,6 +91,15 @@
     <string name="confirm_exit_message">Are you sure you want to close this app?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="enter_name_message">Enter name</string>
+    <string name="enter_email_message">Enter Email</string>
+    <string name="enter_address_message">Enter Address</string>
+    <string name="enter_phone_message">Enter Phone no</string>
+    <string name="enter_bio_message">Enter Biography</string>
+    <string name="bio_length_exceeded_message">Bio must not exceed 300 characters</string>
+
+    <string name="select_profile_image_message">Select Profile Image</string>
+    <string name="select_background_image_message">Select Background Profile Image</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
