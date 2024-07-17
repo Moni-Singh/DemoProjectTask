@@ -53,7 +53,7 @@ public class ExpandableListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         mViewModel = new ViewModelProvider(this).get(ExpandableListViewModel.class);
         mViewModel.getProductCategoryApi();
-//        mViewModel.getCategoryProducts();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(Constants.EXPANDABLE_LIST);
