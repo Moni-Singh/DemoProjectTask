@@ -1,8 +1,11 @@
 package com.example.taskdemo.model.category;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Product {
+public class Product implements Parcelable {
     private int id;
     private String title;
     private int price;
@@ -12,7 +15,6 @@ public class Product {
     private String updatedAt;
     private CategoryResponse category;
 
-    // Constructor
     public Product(int id, String title, int price, String description, List<String> images, String creationAt, String updatedAt, CategoryResponse category) {
         this.id = id;
         this.title = title;
@@ -86,5 +88,46 @@ public class Product {
 
     public void setCategory(CategoryResponse category) {
         this.category = category;
+    }
+
+
+    protected Product(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        price = in.readInt();
+        description = in.readString();
+        images = in.createStringArrayList();
+        creationAt = in.readString();
+        updatedAt = in.readString();
+        category = in.readParcelable(CategoryResponse.class.getClassLoader());
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeInt(price);
+        dest.writeString(description);
+        dest.writeStringList(images);
+        dest.writeString(creationAt);
+        dest.writeString(updatedAt);
+        dest.writeParcelable(category, flags);
     }
 }

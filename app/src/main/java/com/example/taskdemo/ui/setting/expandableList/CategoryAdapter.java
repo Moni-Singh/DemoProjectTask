@@ -1,13 +1,10 @@
 package com.example.taskdemo.ui.setting.expandableList;
 
-import android.util.Log;
+import static android.provider.Settings.System.getString;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -15,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskdemo.R;
+import com.example.taskdemo.databinding.ItemCategoryBinding;
 import com.example.taskdemo.model.category.Expandable;
 import com.example.taskdemo.model.category.Product;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
+import com.example.taskdemo.productinterface.OnClickCategoryProduct;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder> {
@@ -28,53 +24,60 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     private int expandedPosition = -1;
     private ExpandableListViewModel mViewModel;
     private LifecycleOwner mLifecycleOwner;
+    private View progressLayout;
+    private OnClickCategoryProduct onClickCategoryProduct;
 
-    public CategoryAdapter(List<Expandable> mList, ExpandableListViewModel expandableListViewModel, LifecycleOwner lifecycleOwner) {
+    public CategoryAdapter(List<Expandable> mList, ExpandableListViewModel expandableListViewModel, LifecycleOwner lifecycleOwner,OnClickCategoryProduct onClickCategoryProduct, View progressLayout) {
+        this.onClickCategoryProduct = onClickCategoryProduct;
         this.mList = mList;
         this.mViewModel = expandableListViewModel;
         this.mLifecycleOwner = lifecycleOwner;
+        this.progressLayout = progressLayout;
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new ItemViewHolder(view);
+        ItemCategoryBinding binding = ItemCategoryBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new ItemViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Expandable model = mList.get(position);
-        holder.mTextView.setText(model.getCategoryName());
-        Log.d("CategoryAdapter", model.getCategoryName());
-
+        holder.binding.categoryTv.setText(model.getCategoryName());
         boolean isExpandable = (position == expandedPosition);
-        holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+        holder.binding.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
 
         if (isExpandable) {
-            holder.mArrowImage.setImageResource(R.drawable.ic_arrow_up);
+            holder.binding.arroImageview.setImageResource(R.drawable.ic_arrow_up);
             List<Product> list = model.getCategoryProduct();
-            CategoryItemAdapter adapter = new CategoryItemAdapter(list);
-            holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-            holder.nestedRecyclerView.setHasFixedSize(true);
-            holder.nestedRecyclerView.setAdapter(adapter);
+            int categoryId = model.getCategoryId();
+            CategoryItemAdapter adapter = new CategoryItemAdapter(list,onClickCategoryProduct,categoryId);
+            holder.binding.categoryProductRv.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
+            holder.binding.categoryProductRv.setHasFixedSize(true);
+            holder.binding.categoryProductRv.setAdapter(adapter);
         } else {
-            holder.mArrowImage.setImageResource(R.drawable.ic_arrow_down);
+            holder.binding.arroImageview.setImageResource(R.drawable.ic_arrow_down);
         }
 
-        holder.linearLayout.setOnClickListener(v -> {
+        holder.binding.linearLayout.setOnClickListener(v -> {
+
+            holder.binding.progressLayout.getRoot().setVisibility(View.VISIBLE);
 
             int oldPosition = expandedPosition;
             expandedPosition = (position == expandedPosition) ? -1 : position;
 
             if (expandedPosition != -1) {
-                int categoryId = model.getCategoryId(); // Get the category ID
+                int categoryId = model.getCategoryId();
                 mViewModel.getCategoryProducts(categoryId);
-//                mViewModel.getCategoryProducts();
                 mViewModel.getPoductCategoryLiveData().observe(mLifecycleOwner, productCategoryItem -> {
                     if (productCategoryItem != null) {
+                        holder.binding.progressLayout.getRoot().setVisibility(View.GONE);
                         mList.get(position).setCategoryProduct(productCategoryItem);
                         notifyItemChanged(expandedPosition);
+                    }else{
+                        holder.binding.progressLayout.getRoot().setVisibility(View.GONE);
                     }
                 });
             }
@@ -90,19 +93,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout linearLayout;
-        private RelativeLayout expandableLayout;
-        private TextView mTextView;
-        private ImageView mArrowImage;
-        private RecyclerView nestedRecyclerView;
 
-        public ItemViewHolder(@NonNull View itemView) {
-            super(itemView);
-            linearLayout = itemView.findViewById(R.id.linear_layout);
-            expandableLayout = itemView.findViewById(R.id.expandable_layout);
-            mTextView = itemView.findViewById(R.id.itemTv);
-            mArrowImage = itemView.findViewById(R.id.arro_imageview);
-            nestedRecyclerView = itemView.findViewById(R.id.child_rv);
+        private final ItemCategoryBinding binding;
+        public ItemViewHolder(@NonNull ItemCategoryBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+
         }
     }
 }

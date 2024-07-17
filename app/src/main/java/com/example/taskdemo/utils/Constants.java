@@ -17,6 +17,9 @@ public class Constants {
     public static final String CAMERA = "Camera";
     public static final String GALLERY = "Gallery";
     public static final String USER_PROFILE = "userProfile";
+    public static final String CATEGORY_PRODUCT_ID = "ProductId";
+    public static final String CATEGORY_ID = "CategoryId";
+    public static final String CATEGORY_PRODUCT_DETAILS = "CategoryProductDetails";
 
 
 }

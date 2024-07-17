@@ -45,4 +45,7 @@
     <item
         android:id="@+id/navigation_expandable_list"
         android:title="@string/expandable_list"/>
+    <item
+        android:id="@+id/navigation_category_product_details"
+        android:title="@string/product_category_details"/>
 </menu>

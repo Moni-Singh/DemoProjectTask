@@ -20,6 +20,7 @@
     <string name="select_State">Select State</string>
     <string name="bagStore">Bag Store</string>
     <string name="price">Price</string>
+    <string name="item_price">Price :</string>
     <string name="category">Category</string>
     <string name="cancel">Cancel</string>
     <string name="camera">Camera</string>
@@ -73,6 +74,7 @@
     <string name="submit">Submit</string>
     <string name="user_detail">User Detail</string>
     <string name="expandable_list">Expandable List</string>
+    <string name="product_category_details">Product Details</string>
     <string name="blocked_list">Blocked List</string>
     <string name="tic_tac_toe">Tic Tac Toe</string>
     <string name="account_privacy">Account Privacy</string>

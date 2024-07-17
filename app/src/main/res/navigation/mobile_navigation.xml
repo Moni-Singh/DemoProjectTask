@@ -67,4 +67,10 @@
         android:label="@string/expandable_list"
         tools:layout="@layout/fragment_expandable_list"
         />
+    <fragment
+        android:id="@+id/navigation_category_product_details"
+        android:name="com.example.taskdemo.ui.setting.productDetails.ProductCategoryDetails"
+        android:label="@string/product_category_details"
+        tools:layout="@layout/fragment_product_category_details"
+        />
 </navigation>
