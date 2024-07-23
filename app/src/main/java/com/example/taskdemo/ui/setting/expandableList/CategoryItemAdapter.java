@@ -16,13 +16,13 @@ import java.util.List;
 
 public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.NestedViewHolder> {
 
-    private List<Product> mList;
+    private List<Product> productList;
     private OnClickCategoryProduct onClickCategoryProduct;
     private int categoryId;
 
 
     public CategoryItemAdapter(List<Product> mList, OnClickCategoryProduct onClickCategoryProduct, int categoryId) {
-        this.mList = mList;
+        this.productList = mList;
         this.onClickCategoryProduct = onClickCategoryProduct;
         this.categoryId = categoryId;
     }
@@ -36,7 +36,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NestedViewHolder holder, int position) {
-        Product product = mList.get(position);
+        Product product = productList.get(position);
         holder.binding.tvProductTitle.setText(product.getTitle());
         holder.binding.tvProductPrice.setText(String.valueOf(product.getPrice()));
 
@@ -46,7 +46,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
             Picasso.get()
                     .load(images.get(0))
                     .fit()
-                    .placeholder(R.drawable.clothes)
+                    .placeholder(R.drawable.image)
                     .into(holder.binding.productImgView);
         }
         holder.binding.productDetailsLl.setOnClickListener(v -> {
@@ -56,7 +56,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return productList.size();
     }
 
     public static class NestedViewHolder extends RecyclerView.ViewHolder {

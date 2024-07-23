@@ -41,7 +41,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         productDetailsViewHolder.binding.productPriceTv.setText("Price: " + product.getPrice());
         Picasso.get()
                 .load(product.getImage())
-                .placeholder(R.drawable.nature)
+                .placeholder(R.drawable.image)
                 .into(productDetailsViewHolder.binding.productImage);
         productDetailsViewHolder.binding.ratingtv.setText(String.format("%.1f", product.getRating().getRate()));
 

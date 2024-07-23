@@ -9,7 +9,8 @@
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,18 +46,20 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dividerColor="@color/dividergrey"
-            android:minWidth="1dp"/>
-
+            android:minWidth="1dp"
+            app:dividerColor="@color/dividergrey" />
         <RelativeLayout
             android:id="@+id/expandable_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/lightPink">
+
             <include
                 android:id="@+id/progress_layout"
                 layout="@layout/include_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryProductRv"
                 android:layout_width="match_parent"

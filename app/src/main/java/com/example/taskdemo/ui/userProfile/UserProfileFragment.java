@@ -268,7 +268,7 @@ public class UserProfileFragment extends Fragment {
             Glide.with(this).load(profileUri).into(binding.ivUserProfileImage);
             binding.ivUserProfileImage.setTag(userProfile.getProfileImage());
         } else {
-            Glide.with(this).load(R.drawable.nature).into(binding.ivUserProfileImage);
+            Glide.with(this).load(R.drawable.image).into(binding.ivUserProfileImage);
         }
 
         if (userProfile.getBackgroundImage() != null && !userProfile.getBackgroundImage().isEmpty()) {

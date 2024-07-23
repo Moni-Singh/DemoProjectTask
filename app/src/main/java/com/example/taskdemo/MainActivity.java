@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     public static List<Integer> likeProducts = new ArrayList<>();
     public static List<Integer> bookmarked = new ArrayList<>();
+    public  static int expandablePosition = -1;
+    public static List<Integer>eventLocation = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             navController.navigate(R.id.navigation_login);
         }
+    }
+
+    public static void setExpandedPosition(int position) {
+        expandablePosition = position;
+    }
+
+    public static int getExpandedPosition() {
+        return expandablePosition;
+    }
+
+    public static void clearExpandedPosition() {
+        expandablePosition = -1;
     }
 
     @Override

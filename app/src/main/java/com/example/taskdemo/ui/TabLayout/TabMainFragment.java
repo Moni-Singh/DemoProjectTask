@@ -78,7 +78,7 @@ public class TabMainFragment extends Fragment {
         });
 
         tabLayout.addTab(tabLayout.newTab().setText(Constants.DISCOVER));
-        tabLayout.addTab(tabLayout.newTab().setText(Constants.PHOTO));
+        tabLayout.addTab(tabLayout.newTab().setText(Constants.CATEGORY));
         tabLayout.addTab(tabLayout.newTab().setText(Constants.BOOKMARK));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.getTabAt(0).select();

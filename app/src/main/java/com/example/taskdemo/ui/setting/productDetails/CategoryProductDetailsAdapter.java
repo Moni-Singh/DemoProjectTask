@@ -41,7 +41,7 @@ public class CategoryProductDetailsAdapter extends RecyclerView.Adapter<Recycler
 
         Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.nature)
+                .placeholder(R.drawable.image)
                 .into(categoryProductDetailsViewHolder.binding.productImage);
     }
 

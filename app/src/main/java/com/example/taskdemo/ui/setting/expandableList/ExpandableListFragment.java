@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import android.view.ViewGroup;
 
 import com.example.taskdemo.R;
 import com.example.taskdemo.databinding.FragmentExpandableListBinding;
-import com.example.taskdemo.model.category.Expandable;
+import com.example.taskdemo.model.category.CategoryModel;
 import com.example.taskdemo.model.category.Product;
 import com.example.taskdemo.productinterface.OnClickCategoryProduct;
 import com.example.taskdemo.utils.Constants;
@@ -36,11 +37,12 @@ public class ExpandableListFragment extends Fragment implements OnClickCategoryP
     private FragmentExpandableListBinding binding;
 
     private RecyclerView recyclerView;
-    private List<Expandable> mList;
+    private List<CategoryModel> categoryList;
     private CategoryAdapter adapter;
     private Context mContext;
     private String categories;
     private View progressLayout;
+    private boolean isDataLoaded = false;
 
     public static ExpandableListFragment newInstance() {
         return new ExpandableListFragment();
@@ -54,39 +56,44 @@ public class ExpandableListFragment extends Fragment implements OnClickCategoryP
         mContext = getContext();
         progressLayout = binding.progressLayout.getRoot();
         recyclerView = binding.categoryMainRv;
-        progressLayout.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         mViewModel = new ViewModelProvider(this).get(ExpandableListViewModel.class);
-        mViewModel.getProductCategoryApi();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(Constants.EXPANDABLE_LIST);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        binding.toolbar.setTitleTextColor(Color.WHITE);
-        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        mList = new ArrayList<>();
+        categoryList = new ArrayList<>();
+        SwipeRefreshLayout swipeRefreshLayout = binding.swipeRefreshlayout;
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getProductCategoryApi();
+            }
+        });
 
         mViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), productCategory -> {
             if (productCategory != null) {
+                swipeRefreshLayout.setRefreshing(false);
                 progressLayout.setVisibility(View.GONE);
-                mList.clear();
+                categoryList.clear();
                 productCategory.forEach(it -> {
-                    mList.add(new Expandable(new ArrayList<Product>(), it.getName(), it.getId()));
+                    categoryList.add(new CategoryModel(new ArrayList<Product>(), it.getName(), it.getId()));
                 });
-                adapter = new CategoryAdapter(mList, mViewModel, this, this, progressLayout);
+                adapter = new CategoryAdapter(categoryList, mViewModel, this, this, progressLayout, mContext);
                 recyclerView.setAdapter(adapter);
+                isDataLoaded = true;
             } else {
+                swipeRefreshLayout.setRefreshing(false);
                 progressLayout.setVisibility(View.GONE);
                 HelperMethod.showToast(getString(R.string.something_went_wrong), mContext);
             }
         });
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                Navigation.findNavController(requireView()).navigate(R.id.navigation_expandable_list);
-            }
-        });
+
+        if (!isDataLoaded) {
+            progressLayout.setVisibility(View.VISIBLE);
+            mViewModel.getProductCategoryApi();
+        }else{
+            progressLayout.setVisibility(View.GONE);
+        }
+
         return root;
     }
 

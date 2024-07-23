@@ -2,14 +2,14 @@ package com.example.taskdemo.model.category;
 
 import java.util.List;
 
-public class Expandable {
+public class CategoryModel {
 
     private List<Product> categoryProduct;
     private String categoryName;
     private  int categoryId;
     private boolean isExpandable;
 
-    public Expandable(List<Product> itemList, String itemText,int categoryId) {
+    public CategoryModel(List<Product> itemList, String itemText, int categoryId) {
         this.categoryProduct = itemList;
         this.categoryName = itemText;
         this.categoryId = categoryId;

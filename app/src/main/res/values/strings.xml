@@ -99,6 +99,17 @@
     <string name="user_email">Email :</string>
     <string name="user_phone_no">Phone no :</string>
     <string name="no">No</string>
+    <string name="gateway_group">Gateway Group.</string>
+    <string name="you_are_at_location">You are at location</string>
+    <string name="you_are_to_far">You are too far!</string>
+    <string name="you_are">You are</string>
+    <string name="settings">Settings</string>
+    <string name="location_services_disabled">Location Services Disabled</string>
+    <string name="please_enable_location_services">Please enable location services to use this feature.</string>
+    <string name="far_from_event"> meters away from the event location.</string>
+    <string name="data_not_found">Data Not Found</string>
+    <string name="are_you_sure_want_to_logout">Are you sure you want to logout?</string>
+    <string name="google_maps_key">AIzaSyCYjCFvy1LRjs5-ydWbn7t-T2iou4IDk-U</string>
 
     <string name="storage_permission_denied">Storage permission denied</string>
     <string name="ok">Ok</string>
