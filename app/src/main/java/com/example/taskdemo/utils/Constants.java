@@ -5,8 +5,11 @@ public class Constants {
 
     public static final  String PRODUCT_DETAILS = "productDetails";
     public static final  String DISCOVER = "Discover";
+    public static final  String CATEGORY = "Category";
+    public static final  String CUSTOM_BUTTON = "Custom Button";
     public static final  String PHOTO = "Photo";
     public static final  String BOOKMARK ="BookMark";
+    public static final  String EXPANDABLE ="Expandable";
     public static final String PRODUCT_ID = "ProductId";
     public static final String SETTING = "Setting";
     public static final String EXPANDABLE_LIST = "ExpandableList";
@@ -18,7 +21,8 @@ public class Constants {
     public static final String GALLERY = "Gallery";
     public static final String USER_PROFILE = "userProfile";
     public static final String CATEGORY_PRODUCT_ID = "ProductId";
-    public static final String CATEGORY_ID = "CategoryId";
+    public static final String CATEGORY_ID = "categoryId";
+    public static final String CATEGORY_NAME = "CategoryName";
     public static final String CATEGORY_PRODUCT_DETAILS = "CategoryProductDetails";
 
 

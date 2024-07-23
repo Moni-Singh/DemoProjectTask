@@ -45,7 +45,7 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.MyView
         holder.binding.tvProductTitle.setText(product.getTitle());
         Picasso.get()
                 .load(product.getImage())
-                .placeholder(R.drawable.nature)
+                .placeholder(R.drawable.image)
                 .fit()
                 .into(holder.binding.productImgView);
         holder.binding.tvProductPrice.setText("Price: " + product.getPrice());

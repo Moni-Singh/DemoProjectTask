@@ -41,11 +41,14 @@
     <item
         android:id="@+id/navigation_user_detail"
         android:title="@string/user_detail"/>
-
-    <item
-        android:id="@+id/navigation_expandable_list"
-        android:title="@string/expandable_list"/>
     <item
         android:id="@+id/navigation_category_product_details"
         android:title="@string/product_category_details"/>
+    <item
+        android:id="@+id/navigation_expandable"
+        android:title="@string/expandable_product"/>
+    <item
+        android:id="@+id/navigation_customButton"
+        android:title="@string/custom_button"/>
+
 </menu>

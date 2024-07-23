@@ -1,7 +1,5 @@
 package com.example.taskdemo.webservices;
 
-import com.example.taskdemo.utils.Constants;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -11,7 +9,7 @@ public class ApiClient {
 
     public static Retrofit getRetroClient() {
 
-        if(retrofit == null ) {
+        if (retrofit == null) {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(AppUrls.BASE_URL)

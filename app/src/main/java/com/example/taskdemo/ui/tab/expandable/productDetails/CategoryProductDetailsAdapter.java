@@ -1,4 +1,4 @@
-package com.example.taskdemo.ui.setting.productDetails;
+package com.example.taskdemo.ui.tab.expandable.productDetails;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,17 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskdemo.R;
 import com.example.taskdemo.databinding.ItemCategoryProductDetailsBinding;
-
-import com.example.taskdemo.model.category.Product;
+import com.example.taskdemo.model.expandable.CategoryProduct;
+import com.example.taskdemo.model.expandable.CategoryProductData;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 public class CategoryProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Product> productDetailsList;
+    private CategoryProductData productDetailsList;
 
-
-    public CategoryProductDetailsAdapter(List<Product> productDetailsList) {
+    public CategoryProductDetailsAdapter(CategoryProductData productDetailsList) {
         this.productDetailsList = productDetailsList;
     }
 
@@ -31,23 +28,22 @@ public class CategoryProductDetailsAdapter extends RecyclerView.Adapter<Recycler
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Product product = productDetailsList.get(position);
+        CategoryProduct categoryProduct = productDetailsList.products.get(position);
         CategoryProductDetailsAdapter.CategoryProductDetailsViewHolder categoryProductDetailsViewHolder = (CategoryProductDetailsAdapter.CategoryProductDetailsViewHolder) holder;
-        categoryProductDetailsViewHolder.binding.productDescriptionTv.setText(product.getDescription());
-        categoryProductDetailsViewHolder.binding.productTitleTv.setText(product.getTitle());
-        categoryProductDetailsViewHolder.binding.productPriceTv.setText("Price: " + product.getPrice());
-
-        String imageUrl = product.getImages().get(0);
+        categoryProductDetailsViewHolder.binding.productDescriptionTv.setText(categoryProduct.getDescription());
+        categoryProductDetailsViewHolder.binding.productTitleTv.setText(categoryProduct.getTitle());
+        categoryProductDetailsViewHolder.binding.productPriceTv.setText(String.valueOf(categoryProduct.getPrice()));
+        String imageUrl = categoryProduct.getImages().get(0);
 
         Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.nature)
+                .placeholder(R.drawable.image)
                 .into(categoryProductDetailsViewHolder.binding.productImage);
     }
 
     @Override
     public int getItemCount() {
-        return productDetailsList.size();
+        return productDetailsList.products != null ? productDetailsList.products.size() : 0;
     }
 
     static class CategoryProductDetailsViewHolder extends RecyclerView.ViewHolder {

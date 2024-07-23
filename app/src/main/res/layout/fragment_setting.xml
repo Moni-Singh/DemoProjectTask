@@ -114,12 +114,12 @@
                         android:textSize="17sp" />
 
                     <TextView
-                        android:id="@+id/tvAccountPrivacy"
+                        android:id="@+id/tvCustomButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:background="@color/white"
-                        android:text="@string/account_privacy"
+                        android:text="@string/custom_button"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 

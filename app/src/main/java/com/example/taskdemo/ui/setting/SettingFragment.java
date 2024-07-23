@@ -67,14 +67,16 @@ public class SettingFragment extends Fragment {
         binding.tvUserProfile.setOnClickListener(v -> {
            Navigation.findNavController(requireView()).navigate(R.id.navigation_user_profile);
         });
-        binding.tvExpandableList.setOnClickListener(v ->{
-            Navigation.findNavController(requireView()).navigate(R.id.navigation_expandable_list);
-        });
 
         binding.tvAccount.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), BottomNavigation.class);
             startActivity(intent);
         });
+
+        binding.tvCustomButton.setOnClickListener( v->{
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_customButton);
+        });
+
         // Handle back press
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override

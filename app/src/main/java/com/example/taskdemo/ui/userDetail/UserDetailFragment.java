@@ -34,30 +34,37 @@ public class UserDetailFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentUserDetailBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Setup toolbar
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(R.string.user_detail);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setTitleTextColor(Color.WHITE);
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
 
+
+        // Initialize shared preferences
         ApplicationSharedPreferences prefs = new ApplicationSharedPreferences(requireContext());
         UserProfile userProfile = prefs.getUserProfile();
 
         if (userProfile != null) {
             binding.progresslayoutFl.setVisibility(View.VISIBLE);
 
+            // Load profile image using Glide
             Glide.with(this)
                     .load(userProfile.getProfileImage() != null && !userProfile.getProfileImage().isEmpty() ? Uri.parse(userProfile.getProfileImage()) : R.drawable.nature)
                     .placeholder(R.drawable.ic_person)
                     .error(R.drawable.ic_person)
                     .into(binding.userProfileImage);
 
+            // Load background image using Glide
             Glide.with(this)
                     .load(userProfile.getBackgroundImage() != null && !userProfile.getBackgroundImage().isEmpty() ? Uri.parse(userProfile.getBackgroundImage()) : R.drawable.background)
                     .placeholder(R.drawable.background)
                     .error(R.drawable.background)
                     .into(binding.userBackgroundImage);
 
+            // Set user details
             binding.tvUserName.setText(userProfile.getName());
             binding.tvUserEmail.setText(userProfile.getEmail());
             binding.tvUserAddress.setText(userProfile.getAddress());
@@ -65,9 +72,10 @@ public class UserDetailFragment extends Fragment {
             binding.tvUserPhoneNo.setText(userProfile.getPhoneNo());
             binding.progresslayoutFl.setVisibility(View.GONE);
 
+            // Set click listener for edit profile button
             binding.btnEditProfile.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.USER_PROFILE, userProfile);
+                bundle.putParcelable(Constants.USER_PROFILE, userProfile);// Pass user profile data to the bundle
                 bundle.putBoolean(Constants.IS_EDIT_PROFILE, true);
                 Navigation.findNavController(requireView()).navigate(R.id.navigation_user_profile, bundle);
             });

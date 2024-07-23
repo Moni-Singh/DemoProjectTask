@@ -52,9 +52,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         public void bind(GalleryData item) {
             Picasso.get()
                     .load(item.getUrls().getRaw())
-                    .placeholder(R.drawable.nature)
+                    .placeholder(R.drawable.image)
                     .fit()
-                    .into(binding.ivgalleryPhoto);
+                    .into(binding.ivGalleryPhoto);
         }
     }
 }

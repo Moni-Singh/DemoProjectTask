@@ -40,17 +40,28 @@ public class HelperMethod {
 
     public static void showLogoutDialog(Context context, Runnable onConfirmAction) {
         new AlertDialog.Builder(context)
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", (dialog, which) -> {
+                .setTitle(R.string.logout)
+                .setMessage(R.string.are_you_sure_want_to_logout)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
                     if (onConfirmAction != null) {
                         onConfirmAction.run();
                     }
                 })
-                .setNegativeButton("No", (dialog, which) -> {
+                .setNegativeButton(R.string.no, (dialog, which) -> {
                     dialog.dismiss();
                 })
                 .create()
                 .show();
     }
+
+
+    public static void showAlertDialog(Context mContext,String title, String message) {
+        new AlertDialog.Builder(mContext)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
 }

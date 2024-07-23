@@ -54,11 +54,15 @@ public class UserProfileFragment extends Fragment {
         View root = binding.getRoot();
         mContext = getContext();
         sharedPreferences = new ApplicationSharedPreferences(requireContext());
+
+        // Setup toolbar
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(R.string.user_profile);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setTitleTextColor(Color.WHITE);
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
+
+        // Initialize PermissionHandler
         mPermissionHandler = new PermissionHandler(requireActivity());
 
         Bundle bundle = getArguments();
@@ -74,6 +78,7 @@ public class UserProfileFragment extends Fragment {
             }
         }
 
+        // Set click listeners for profile and background image
         binding.ivProfileImageClick.setOnClickListener(v -> {
             isBackgroundImage = false;
             showImagePickerDialog(isBackgroundImage);
@@ -87,6 +92,7 @@ public class UserProfileFragment extends Fragment {
             showImagePickerDialog(isBackgroundImage);
         });
 
+        // Set click listener for submit button
         binding.btnSubmit.setOnClickListener(v -> {
             String name = binding.edtUserName.getText().toString();
             String email = binding.edtUserEmail.getText().toString();
@@ -95,6 +101,8 @@ public class UserProfileFragment extends Fragment {
             String bio = binding.edtUserBio.getText().toString();
             String profileImageUri = (String) binding.ivUserProfileImage.getTag();
             String backgroundImageUri = (String) binding.ivBackgroundImage.getTag();
+
+            // Validate input fields
             if (name.isEmpty()) {
                 HelperMethod.showToast(getString(R.string.enter_name_message), mContext);
                 return;
@@ -133,6 +141,7 @@ public class UserProfileFragment extends Fragment {
                 return;
             }
 
+            // Save profile data
             sharedPreferences.saveUserProfile(name, email, address, profileImageUri, backgroundImageUri, phoneNo, bio);
 
             if (isEditProfile) {
@@ -143,6 +152,7 @@ public class UserProfileFragment extends Fragment {
             Navigation.findNavController(requireView()).navigate(R.id.navigation_user_detail);
         });
 
+        // TextWatcher for bio character limit
         binding.edtUserBio.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -170,10 +180,10 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-
         return root;
     }
 
+    // Show dialog to choose between gallery and camera
     private void showImagePickerDialog(boolean isBackgroundImage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.choose_an_option);
@@ -187,6 +197,7 @@ public class UserProfileFragment extends Fragment {
         builder.show();
     }
 
+    // Launch camera to capture image
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -201,6 +212,7 @@ public class UserProfileFragment extends Fragment {
             }
     );
 
+    // Launch gallery to select image
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
             uri -> {
@@ -210,6 +222,7 @@ public class UserProfileFragment extends Fragment {
             }
     );
 
+    // Start crop activity for selected image
     private void startCropActivity(Uri uri) {
         CropImage.activity(uri)
                 .setAspectRatio(1, 1)
@@ -238,6 +251,7 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    // Open gallery to select image
     private void openGallery() {
         if (mPermissionHandler.checkStoragePermission()) {
             galleryLauncher.launch("image/*");
@@ -246,6 +260,7 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    // Open camera to capture image
     private void openCamera() {
         if (mPermissionHandler.checkStoragePermission()) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -255,6 +270,7 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    // Load user profile data from shared preferences
     private void loadUserProfile() {
         UserProfile userProfile = sharedPreferences.getUserProfile();
         binding.edtUserName.setText(userProfile.getName());
@@ -268,7 +284,7 @@ public class UserProfileFragment extends Fragment {
             Glide.with(this).load(profileUri).into(binding.ivUserProfileImage);
             binding.ivUserProfileImage.setTag(userProfile.getProfileImage());
         } else {
-            Glide.with(this).load(R.drawable.nature).into(binding.ivUserProfileImage);
+            Glide.with(this).load(R.drawable.image).into(binding.ivUserProfileImage);
         }
 
         if (userProfile.getBackgroundImage() != null && !userProfile.getBackgroundImage().isEmpty()) {
@@ -280,6 +296,7 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    // Clear profile data fields
     private void clearProfileData() {
         binding.edtUserName.setText("");
         binding.edtUserEmail.setText("");

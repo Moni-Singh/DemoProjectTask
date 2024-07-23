@@ -51,18 +51,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/nature" />
+                            android:src="@drawable/image" />
 
                         <ImageView
                             android:id="@+id/ivBackgroundImageClick"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="top"
-                            android:elevation="2dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_camera"
-                          />
+                            android:elevation="2dp"
+                            android:src="@drawable/ic_camera" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivUserProfileImage"
@@ -77,9 +76,9 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:elevation="4dp"
                             android:layout_marginStart="30dp"
                             android:layout_marginTop="35dp"
+                            android:elevation="4dp"
                             android:src="@drawable/ic_camera" />
                     </FrameLayout>
 
@@ -148,8 +147,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:background="@null"
-                            android:singleLine="true"
                             android:hint="@string/email"
+                            android:singleLine="true"
                             android:textColorHint="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -229,10 +228,10 @@
                             android:layout_alignParentStart="true"
                             android:background="@null"
                             android:hint="@string/phone_no"
+                            android:inputType="number"
                             android:singleLine="true"
                             android:textColorHint="@color/black"
                             android:textSize="15sp"
-                            android:inputType="number"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
@@ -264,8 +263,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:background="@null"
-                            android:singleLine="true"
                             android:hint="@string/address"
+                            android:singleLine="true"
                             android:textColorHint="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />

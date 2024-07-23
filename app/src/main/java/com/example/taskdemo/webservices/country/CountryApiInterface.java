@@ -13,12 +13,15 @@ import retrofit2.http.POST;
 
 public interface CountryApiInterface {
 
+    //GET COUNTRY
     @GET(CountryUrls.COUNTRY)
     Call<CountryDataResponse> getCountry();
 
+    //GET STATE
     @POST(CountryUrls.STATE)
     Call<StateResponse>getState(@Body StateRequest stateRequest);
 
+    //GET CITIES
     @POST(CountryUrls.CITIES)
     Call<CityResponse>getCities(@Body CityRequest cityRequest);
 

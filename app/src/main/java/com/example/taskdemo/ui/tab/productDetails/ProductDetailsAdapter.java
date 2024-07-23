@@ -19,33 +19,33 @@ import java.util.List;
 public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Product> productDetailsList;
 
-
-
-
-    public ProductDetailsAdapter (List<Product> productDetailsList){
+    public ProductDetailsAdapter(List<Product> productDetailsList) {
         this.productDetailsList = productDetailsList;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemProductDetailsBinding binding= ItemProductDetailsBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        ItemProductDetailsBinding binding = ItemProductDetailsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ProductDetailsViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-    Product product = productDetailsList.get(position);
-    ProductDetailsViewHolder productDetailsViewHolder = (ProductDetailsViewHolder) holder;
-    productDetailsViewHolder.binding.productDescriptionTv.setText(product.getDescription());
+        Product product = productDetailsList.get(position);
+        ProductDetailsViewHolder productDetailsViewHolder = (ProductDetailsViewHolder) holder;
+
+        // Set product details
+        productDetailsViewHolder.binding.productDescriptionTv.setText(product.getDescription());
         productDetailsViewHolder.binding.productTitleTv.setText(product.getTitle());
         productDetailsViewHolder.binding.productPriceTv.setText("Price: " + product.getPrice());
         Picasso.get()
                 .load(product.getImage())
-                .placeholder(R.drawable.nature)
+                .placeholder(R.drawable.image)
                 .into(productDetailsViewHolder.binding.productImage);
         productDetailsViewHolder.binding.ratingtv.setText(String.format("%.1f", product.getRating().getRate()));
 
-
+        // Update like icon state
         boolean isLikedItem = MainActivity.likeProducts.contains(product.getId());
         if (isLikedItem) {
             productDetailsViewHolder.binding.likeProductDetailsIv.setImageResource(R.drawable.ic_like);
@@ -53,32 +53,34 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             productDetailsViewHolder.binding.likeProductDetailsIv.setImageResource(R.drawable.ic_unlike);
         }
 
+        // Handle like button click
         productDetailsViewHolder.binding.likeProductDetailsIv.setOnClickListener(v -> {
             ImageView imageView = (ImageView) v;
             if (MainActivity.likeProducts.contains(product.getId())) {
                 imageView.setImageResource(R.drawable.ic_unlike);
                 MainActivity.likeProducts.remove(MainActivity.likeProducts.indexOf(product.getId()));
-            }else{
+            } else {
                 imageView.setImageResource(R.drawable.ic_like);
                 MainActivity.likeProducts.add(product.getId());
             }
         });
 
-
+        // Update bookmark icon state
         boolean isBookedItem = MainActivity.bookmarked.contains(product.getId());
 
-        if (isBookedItem){
+        if (isBookedItem) {
             productDetailsViewHolder.binding.bookmarkProductIv.setImageResource(R.drawable.ic_bookmark_add);
-        }else {
+        } else {
             productDetailsViewHolder.binding.bookmarkProductIv.setImageResource(R.drawable.ic_bookmark);
         }
 
+        // Handle bookmark button click
         productDetailsViewHolder.binding.bookmarkProductIv.setOnClickListener(v -> {
             ImageView imageView = (ImageView) v;
             if (MainActivity.bookmarked.contains(product.getId())) {
                 imageView.setImageResource(R.drawable.ic_bookmark);
                 MainActivity.bookmarked.remove(MainActivity.bookmarked.indexOf(product.getId()));
-            }else{
+            } else {
                 Product clickedProduct = productDetailsList.get(productDetailsViewHolder.getAdapterPosition());
                 ApplicationSharedPreferences sharedPreferences = new ApplicationSharedPreferences(v.getContext());
                 sharedPreferences.saveProduct(clickedProduct);
@@ -93,10 +95,10 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return productDetailsList.size();
     }
 
-    static class ProductDetailsViewHolder extends RecyclerView.ViewHolder{
+    static class ProductDetailsViewHolder extends RecyclerView.ViewHolder {
         private final ItemProductDetailsBinding binding;
 
-        public  ProductDetailsViewHolder(ItemProductDetailsBinding binding){
+        public ProductDetailsViewHolder(ItemProductDetailsBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;

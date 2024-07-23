@@ -26,38 +26,18 @@ public class ApplicationSharedPreferences {
         this.gson = new Gson();
     }
 
+    //Method to save user profile data
     public void saveUserProfile(String name, String email, String address, String profileImageUri, String backgroundImageUri, String phoneNo, String bio) {
         UserProfile userProfile = new UserProfile(name, email, address, profileImageUri, backgroundImageUri, phoneNo, bio);
         String json = gson.toJson(userProfile);
         sharedPreferences.edit().putString(KEY_USER_PROFILE, json).apply();
     }
 
+    //Method to get user profile data
     public UserProfile getUserProfile() {
         String json = sharedPreferences.getString(KEY_USER_PROFILE, "");
         return gson.fromJson(json, UserProfile.class);
     }
-//
-//    public void saveUserProfile(String name, String email, String address, String profileImage, String backgroundImage, String phoneNo, String bio) {
-//        editor.putString(Constants.KEY_NAME, name);
-//        editor.putString(Constants.KEY_EMAIL, email);
-//        editor.putString(Constants.KEY_ADDRESS, address);
-//        editor.putString(Constants.KEY_PROFILE_IMAGE, profileImage);
-//        editor.putString(Constants.KEY_BACKGROUND_IMAGE, backgroundImage);
-//        editor.putString(Constants.KEY_PHONE_NO, phoneNo);
-//        editor.putString(Constants.KEY_BIO, bio);
-//        editor.apply();
-//    }
-//
-//    public UserProfile getUserProfile() {
-//        String name = sharedPreferences.getString(Constants.KEY_NAME, "");
-//        String email = sharedPreferences.getString(Constants.KEY_EMAIL, "");
-//        String address = sharedPreferences.getString(Constants.KEY_ADDRESS, "");
-//        String profileImage = sharedPreferences.getString(Constants.KEY_PROFILE_IMAGE, "");
-//        String backgroundImage = sharedPreferences.getString(Constants.KEY_BACKGROUND_IMAGE, "");
-//        String phoneNo = sharedPreferences.getString(Constants.KEY_PHONE_NO, "");
-//        String bio = sharedPreferences.getString(Constants.KEY_BIO, "");
-//        return new UserProfile(name, email, address, profileImage, backgroundImage, phoneNo, bio);
-//    }
 
     // Method to save the token
     public void saveToken(String token) {
@@ -90,7 +70,7 @@ public class ApplicationSharedPreferences {
     }
 
     public boolean isProductBookmarked(int productId) {
-        Set<String> bookmarkedProducts = sharedPreferences.getStringSet(Constants.PRODUCT , new HashSet<>());
+        Set<String> bookmarkedProducts = sharedPreferences.getStringSet(Constants.PRODUCT, new HashSet<>());
         return bookmarkedProducts.contains(String.valueOf(productId));
     }
 

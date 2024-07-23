@@ -4,27 +4,33 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:title="@string/home"
+        android:enabled="true"
         />
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_setting"
-        android:title="Setting"
+        android:title="@string/setting"
+        android:enabled="true"
         />
 
     <item
-        android:id="@+id/placeholder"
-        android:title="" />
+        android:id="@+id/category"
+        android:title="@string/category"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart"/>
 
     <item
         android:id="@+id/fab"
         android:icon="@drawable/ic_fab"
-        android:title="Favroite"
+        android:enabled="true"
+        android:title="@string/favroite"
         />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_person"
-        android:title="Profile"
+        android:enabled="true"
+        android:title="@string/profile"
         />
 
 </menu>
