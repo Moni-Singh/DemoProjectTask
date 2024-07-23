@@ -8,12 +8,12 @@
         android:id="@+id/navigation_productDetails"
         android:name="com.example.taskdemo.ui.tab.productDetails.ProductDetailFragment"
         android:label="@string/title_ProductDetails"
-        tools:layout="@layout/fragment_product_detail"/>
+        tools:layout="@layout/fragment_product_detail" />
     <fragment
         android:id="@+id/navigation_mainTab"
         android:name="com.example.taskdemo.ui.TabLayout.TabMainFragment"
         android:label="@string/title_mainTab"
-        tools:layout="@layout/fragment_main_tab"/>
+        tools:layout="@layout/fragment_main_tab" />
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.taskdemo.ui.auth.login.LoginFragment"
@@ -35,42 +35,53 @@
         android:id="@+id/navigation_discover"
         android:name="com.example.taskdemo.ui.tab.discover.DiscoverFragment"
         android:label="@string/discover"
-        tools:layout="@layout/fragment_discover"/>
+        tools:layout="@layout/fragment_discover" />
 
     <fragment
         android:id="@+id/navigation_Setting"
         android:name="com.example.taskdemo.ui.setting.SettingFragment"
         android:label="@string/setting"
         tools:layout="@layout/fragment_setting" />
+
     <fragment
         android:id="@+id/navigation_CountrySelection"
         android:name="com.example.taskdemo.ui.countrySelection.CountrySelectionFragment"
         android:label="@string/country_selection"
         tools:layout="@layout/fragment_country_selection" />
-        <fragment
-            android:id="@+id/navigation_user_profile"
-            android:name="com.example.taskdemo.ui.userProfile.UserProfileFragment"
-            android:label="@string/bottom_navigation"
-            tools:layout="@layout/fragment_user_profile"
-            />
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.example.taskdemo.ui.userProfile.UserProfileFragment"
+        android:label="@string/bottom_navigation"
+        tools:layout="@layout/fragment_user_profile" />
 
     <fragment
         android:id="@+id/navigation_user_detail"
         android:name="com.example.taskdemo.ui.userDetail.UserDetailFragment"
         android:label="@string/user_detail"
-        tools:layout="@layout/fragment_user_detail"
-        />
+        tools:layout="@layout/fragment_user_detail" />
 
     <fragment
-        android:id="@+id/navigation_expandable_list"
-        android:name="com.example.taskdemo.ui.setting.expandableList.ExpandableListFragment"
-        android:label="@string/expandable_list"
-        tools:layout="@layout/fragment_expandable_list"
-        />
-    <fragment
         android:id="@+id/navigation_category_product_details"
-        android:name="com.example.taskdemo.ui.setting.productDetails.ProductCategoryDetails"
+        android:name="com.example.taskdemo.ui.tab.expandable.productDetails.ProductCategoryDetails"
         android:label="@string/product_category_details"
-        tools:layout="@layout/fragment_product_category_details"
-        />
+        tools:layout="@layout/fragment_product_category_details" />
+
+    <fragment
+        android:id="@+id/navigation_expandable"
+        android:name="com.example.taskdemo.ui.tab.expandable.ExpandableFragment"
+        android:label="@string/expandable_product"
+        tools:layout="@layout/fragment_expandable" />
+
+    <fragment
+        android:id="@+id/navigation_customButton"
+        android:name="com.example.taskdemo.ui.setting.customButton.CustomButtonFragment"
+        android:label="@string/custom_button"
+        tools:layout="@layout/fragment_custom_button" />
+
+    <fragment
+        android:id="@+id/navigation_switch_compact"
+        android:name="com.example.taskdemo.ui.setting.switchcompact.SwitchCompactFragment"
+        android:label="@string/switch_compact"
+        tools:layout="@layout/fragment_switch_compact" />
 </navigation>

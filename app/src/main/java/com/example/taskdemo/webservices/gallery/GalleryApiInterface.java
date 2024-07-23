@@ -8,6 +8,7 @@ import retrofit2.http.Query;
 
 public interface GalleryApiInterface {
 
+    //GET PHOTO
     @GET("search/photos")
     Call<GalleryDataResponse> getMakeUpPhotos(
             @Query("client_id") String clientId,

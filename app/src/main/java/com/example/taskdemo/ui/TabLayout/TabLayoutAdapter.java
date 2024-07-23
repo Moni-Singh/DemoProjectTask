@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.taskdemo.ui.tab.bookmark.BookmarkFragment;
 import com.example.taskdemo.ui.tab.discover.DiscoverFragment;
-import com.example.taskdemo.ui.tab.photo.PhotoFragment;
+import com.example.taskdemo.ui.tab.expandable.ExpandableFragment;
 
 public class TabLayoutAdapter  extends FragmentStatePagerAdapter {
     private Context myContext;
@@ -27,7 +27,7 @@ public class TabLayoutAdapter  extends FragmentStatePagerAdapter {
             case 0:
                 return new DiscoverFragment();
             case 1:
-                return new PhotoFragment();
+                return new ExpandableFragment();
             case 2:
                 return new BookmarkFragment();
             default:

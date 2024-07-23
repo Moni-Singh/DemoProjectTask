@@ -1,12 +1,12 @@
 package com.example.taskdemo;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 
@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     public static List<Integer> likeProducts = new ArrayList<>();
     public static List<Integer> bookmarked = new ArrayList<>();
+    public  static int expandablePosition = -1;
+    public static List<Integer> eventLocation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri uri = getIntent().getData();
+
+        if (uri != null) {
+            String scheme = uri.getScheme();
+            String host = uri.getHost();
+            String path = uri.getPath();
+
+            // Handle the URI here
+            if ("myapp".equals(scheme) && "myhost".equals(host) && "/login".equals(path)) {
+                Toast.makeText(this, R.string.welcome_to_task_demo, Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
         // Check if token exists and navigate accordingly
         ApplicationSharedPreferences sharedPreferences = new ApplicationSharedPreferences(this);
@@ -40,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             navController.navigate(R.id.navigation_login);
         }
+    }
+
+    public static void setExpandedPosition(int position) {
+        expandablePosition = position;
+    }
+
+    public static int getExpandedPosition() {
+        return expandablePosition;
     }
 
     @Override

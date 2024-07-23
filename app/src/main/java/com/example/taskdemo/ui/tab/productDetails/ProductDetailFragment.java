@@ -47,14 +47,20 @@ public class ProductDetailFragment extends Fragment {
         progressLayout = binding.progressLayout.getRoot();
         mViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
         progressLayout.setVisibility(View.VISIBLE);
+
+        // Set up the toolbar
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(R.string.product_details);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
         binding.toolbar.setTitleTextColor(Color.WHITE);
+
+        // Fetch product data from the API
         mViewModel.getProductsApi();
 
+        // Observe the ViewModel for data changes
         observeViewModel();
+
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,35 +86,38 @@ public class ProductDetailFragment extends Fragment {
         return root;
     }
 
+    // Observe the ViewModel for product data
     private void observeViewModel() {
         mViewModel.getProductCategoryLiveData().observe(getViewLifecycleOwner(), products -> {
             if (products != null) {
                 // Retrieve the product and position from the arguments
                 Bundle bundle = getArguments();
                 if (bundle != null) {
-                    product = (Product) bundle.getParcelable(Constants.PRODUCT_DETAILS);
+                    product = bundle.getParcelable(Constants.PRODUCT_DETAILS);
                     productId = bundle.getInt(Constants.PRODUCT_ID, 0);
                 } else {
                     HelperMethod.showToast(getString(R.string.something_went_wrong), mContext);
+                    return;
                 }
 
                 productDetailsAdapter = new ProductDetailsAdapter(products);
                 binding.productDetailsVp.setAdapter(productDetailsAdapter);
 
-                // Set offscreen page limit to 0
+                // Set offscreen page limit to default
                 binding.productDetailsVp.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
 
                 // Find the position of the product with the given id
                 int positionToDisplay = -1;
                 for (int i = 0; i < products.size(); i++) {
                     if (products.get(i).getId() == productId) {
-
+                        positionToDisplay = i;
                         break;
                     }
                 }
+
                 if (positionToDisplay != -1) {
                     binding.productDetailsVp.setCurrentItem(positionToDisplay, false);
-                    binding.productDetailsVp.setUserInputEnabled(false);
+                    binding.productDetailsVp.setUserInputEnabled(false); // Allow user input for swiping
                     progressLayout.setVisibility(View.GONE);
                 } else {
                     progressLayout.setVisibility(View.GONE);
@@ -118,6 +127,7 @@ public class ProductDetailFragment extends Fragment {
         });
     }
 
+    // Get the item position with the given offset
     private int getItem(int offset) {
         int currentItem = binding.productDetailsVp.getCurrentItem();
         int totalItems = productDetailsAdapter != null ? productDetailsAdapter.getItemCount() : 0;

@@ -3,7 +3,6 @@ package com.example.taskdemo.ui.tab.bookmark;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.example.taskdemo.databinding.FragmentBookmarkBinding;
 import com.example.taskdemo.model.response.Product;
 import com.example.taskdemo.utils.ApplicationSharedPreferences;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Set;

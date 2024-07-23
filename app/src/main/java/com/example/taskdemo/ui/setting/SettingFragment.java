@@ -24,8 +24,7 @@ import com.example.taskdemo.ui.bottomNavigation.BottomNavigation;
 import com.example.taskdemo.utils.ApplicationSharedPreferences;
 import com.example.taskdemo.utils.Constants;
 import com.example.taskdemo.utils.HelperMethod;
-
-import java.util.List;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class SettingFragment extends Fragment {
 
@@ -41,6 +40,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
+        Fresco.initialize(requireContext());
         mViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
         mContext = getContext();
         View root = binding.getRoot();
@@ -49,6 +49,7 @@ public class SettingFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setTitleTextColor(Color.WHITE);
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
+
         binding.btnLogout.setOnClickListener(v -> {
             HelperMethod.showLogoutDialog(mContext, () -> {
                 ApplicationSharedPreferences sharedPreferences = new ApplicationSharedPreferences(requireContext());
@@ -67,14 +68,20 @@ public class SettingFragment extends Fragment {
         binding.tvUserProfile.setOnClickListener(v -> {
            Navigation.findNavController(requireView()).navigate(R.id.navigation_user_profile);
         });
-        binding.tvExpandableList.setOnClickListener(v ->{
-            Navigation.findNavController(requireView()).navigate(R.id.navigation_expandable_list);
-        });
 
         binding.tvAccount.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), BottomNavigation.class);
             startActivity(intent);
         });
+
+        binding.tvCustomButton.setOnClickListener( v->{
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_customButton);
+        });
+
+        binding.tvSwitchCompact.setOnClickListener(v->{
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_switch_compact);
+        });
+
         // Handle back press
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override

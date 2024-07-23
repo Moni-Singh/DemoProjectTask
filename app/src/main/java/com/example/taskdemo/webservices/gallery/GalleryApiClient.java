@@ -8,7 +8,7 @@ public class GalleryApiClient {
 
     public static Retrofit getRetroClient() {
 
-        if(retrofit == null ) {
+        if (retrofit == null) {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(GalleryUrls.BASE_URL)

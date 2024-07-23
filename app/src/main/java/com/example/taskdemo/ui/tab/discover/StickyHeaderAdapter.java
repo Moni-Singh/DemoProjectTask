@@ -1,5 +1,6 @@
 package com.example.taskdemo.ui.tab.discover;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.taskdemo.databinding.ItemProductsBinding;
 
 import com.example.taskdemo.databinding.ItemSliderBinding;
 import com.example.taskdemo.model.response.Product;
+import com.example.taskdemo.productinterface.OnClickLocation;
 import com.example.taskdemo.productinterface.OnProductItemClickListener;
 import com.squareup.picasso.Picasso;
 
@@ -30,25 +32,29 @@ import java.util.stream.Collectors;
 public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Product> productList = new ArrayList<>();
+
+    // View types for different item layouts
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private static final int VIEW_TYPE_SLIDER = 2;
     OnProductItemClickListener onProductItemClickListener;
+    OnClickLocation onClickLocation;
 
-    public StickyHeaderAdapter(OnProductItemClickListener onProductItemClickListener) {
+    public StickyHeaderAdapter(OnProductItemClickListener onProductItemClickListener, OnClickLocation onClickLocation) {
         this.onProductItemClickListener = onProductItemClickListener;
+        this.onClickLocation = onClickLocation;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == VIEW_TYPE_HEADER){
+        if (viewType == VIEW_TYPE_HEADER) {
             ItemHeaderBinding binding = ItemHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new HeaderViewHolder(binding);
         } else if (viewType == VIEW_TYPE_SLIDER) {
-            ItemSliderBinding binding= ItemSliderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            ItemSliderBinding binding = ItemSliderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new SliderViewHolder(binding);
-        } else{
+        } else {
             ItemProductsBinding binding = ItemProductsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new ProductViewHolder(binding);
         }
@@ -57,7 +63,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Product product = productList.get(position);
-        if(product.isCategory()){
+        if (product.isCategory()) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.binding.tvHeader.setText(product.getCategory());
         } else if (product.isSlider()) {
@@ -75,16 +81,20 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     productsAdapter.setupPagerDots(sliderViewHolder.binding.pagerDots, position);
                 }
             });
-        } else{
+        } else {
             ProductViewHolder productHolder = (ProductViewHolder) holder;
             productHolder.binding.tvProductTitle.setText(product.getTitle());
             productHolder.binding.tvProductPrice.setText("Price: " + product.getPrice());
             productHolder.binding.tvProductDescription.setText(product.getDescription());
             Picasso.get().load(product.getImage()).fit().into(productHolder.binding.productImgView);
+
+            productHolder.binding.locationIv.setOnClickListener(v -> {
+                onClickLocation.onItemClick(product.getId());
+            });
             productHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onProductItemClickListener.onItemClick(product.getId(),product);
+                    onProductItemClickListener.onItemClick(product.getId(), product);
                 }
             });
 
@@ -95,12 +105,20 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 productHolder.binding.likeProductImageView.setImageResource(R.drawable.ic_unlike);
             }
 
+            boolean isEventLocation = MainActivity.eventLocation.contains(product.getId());
+            if (isEventLocation) {
+                productHolder.binding.locationIv.setImageResource(R.drawable.location);
+            } else {
+                productHolder.binding.locationIv.setImageResource(R.drawable.ic_location);
+            }
+
+
             productHolder.binding.likeProductImageView.setOnClickListener(v -> {
                 ImageView imageView = (ImageView) v;
                 if (MainActivity.likeProducts.contains(product.getId())) {
                     imageView.setImageResource(R.drawable.ic_unlike);
                     MainActivity.likeProducts.remove(MainActivity.likeProducts.indexOf(product.getId()));
-                }else{
+                } else {
                     imageView.setImageResource(R.drawable.ic_like);
                     MainActivity.likeProducts.add(product.getId());
                 }
@@ -117,10 +135,10 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         Product product = productList.get(position);
-        if(product.isCategory()){
+        if (product.isCategory()) {
             return VIEW_TYPE_HEADER;
         } else if (product.isSlider()) {
-            return  VIEW_TYPE_SLIDER;
+            return VIEW_TYPE_SLIDER;
         }
         return VIEW_TYPE_ITEM;
     }
@@ -147,6 +165,7 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             this.binding = binding;
         }
     }
+
     class SliderViewHolder extends RecyclerView.ViewHolder {
         private final ItemSliderBinding binding;
 
@@ -155,8 +174,6 @@ public class StickyHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             this.binding = binding;
         }
     }
-
-
 
 
 }

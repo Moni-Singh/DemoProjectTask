@@ -1,5 +1,6 @@
 package com.example.taskdemo.ui.TabLayout;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,35 +34,48 @@ public class TabMainFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager viewPager;
     Toolbar toolbar;
+    private View bottomNavigation;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         binding = FragmentMainTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        MenuHost menuHost = requireActivity();
-        Window window = getActivity().getWindow();
 
+        // Initialize bottom navigation view
+        bottomNavigation = binding.bottomNavigation.getRoot();
+
+        // Set up menu host to manage menu items
+        MenuHost menuHost = requireActivity();
+
+        // Configure window settings for status bar color
+        Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.red));
+
+        // Initialize views
         tabLayout = binding.tabLayout;
         toolbar = root.findViewById(R.id.mToolbar);
         viewPager = binding.tabViewpager;
         collapsingToolbarLayout = root.findViewById(R.id.collapsing_toolbar);
-        AppBarLayout appBarLayout = root.findViewById(R.id.appBar);
 
+        // Set up the toolbar
+        AppBarLayout appBarLayout = root.findViewById(R.id.appBar);
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("");
+        toolbar.setTitleTextColor(Color.WHITE);
         setHasOptionsMenu(true);
 
-        toolbar.setTitleTextColor(Color.WHITE);
+        // Add offset change listener to handle toolbar collapse and expansion
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
 
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (scrollRange == -1) {
@@ -69,23 +83,29 @@ public class TabMainFragment extends Fragment {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(getString(R.string.product));
+                    bottomNavigation.setVisibility(View.GONE);
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
+                    bottomNavigation.setVisibility(View.VISIBLE);
                     isShow = false;
                 }
             }
         });
 
+        // Set up tabs in TabLayout
         tabLayout.addTab(tabLayout.newTab().setText(Constants.DISCOVER));
-        tabLayout.addTab(tabLayout.newTab().setText(Constants.PHOTO));
+        tabLayout.addTab(tabLayout.newTab().setText(Constants.CATEGORY));
         tabLayout.addTab(tabLayout.newTab().setText(Constants.BOOKMARK));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.getTabAt(0).select();
 
+        // Set up ViewPager with TabLayoutAdapter
         final TabLayoutAdapter tabLayoutAdapter = new TabLayoutAdapter(requireContext(), getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(tabLayoutAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        // Add tab selected listener to handle tab selection
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -103,6 +123,7 @@ public class TabMainFragment extends Fragment {
             }
         });
 
+        // Add menu provider to handle options menu creation and item selection
         menuHost.addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
